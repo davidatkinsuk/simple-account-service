@@ -9,6 +9,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import uk.co.davidatkins.simpleaccountservice.model.Account;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,6 +28,18 @@ public class AccountServiceIntegrationTest {
         assertEquals(HttpStatus.OK, entity.getStatusCode());
 
         JSONAssert.assertEquals("[]", entity.getBody(), false);
+
+    }
+
+    @Test
+    public void addAccount() throws Exception {
+
+        Account testAccount = Account.builder().id(1).build();
+
+        ResponseEntity<String> postEntity =new TestRestTemplate().postForEntity(String.format("http://localhost:%s/rest/account/json",port),testAccount,String.class);
+        assertEquals(HttpStatus.OK, postEntity.getStatusCode());
+
+        JSONAssert.assertEquals("{ \"message\" : \"account has been successfully added\"" , postEntity.getBody(), false);
 
     }
 
