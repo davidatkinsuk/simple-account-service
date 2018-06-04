@@ -74,7 +74,7 @@ public class InMemoryAccountRepositoryTest {
         repo.deleteAccount(1);
 
         assertEquals(1,repo.getAccount().size());
-        assertIsTestAccount1(repo.getAccount().get(0));
+        assertIsTestAccount2(repo.getAccount().get(0));
 
     }
 

@@ -8,4 +8,6 @@ public interface AccountRepository {
     List<Account> getAccount();
 
     void addAccount(Account build);
+
+    void deleteAccount(int i);
 }

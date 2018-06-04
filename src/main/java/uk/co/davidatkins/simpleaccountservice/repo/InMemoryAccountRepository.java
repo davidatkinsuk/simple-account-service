@@ -4,6 +4,7 @@ import uk.co.davidatkins.simpleaccountservice.model.Account;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InMemoryAccountRepository implements AccountRepository {
 
@@ -17,5 +18,10 @@ public class InMemoryAccountRepository implements AccountRepository {
     @Override
     public void addAccount(Account build) {
         accounts.add(build);
+    }
+
+    @Override
+    public void deleteAccount(int id) {
+        accounts = accounts.stream().filter(a -> a.getId() != id).collect(Collectors.toList());
     }
 }
