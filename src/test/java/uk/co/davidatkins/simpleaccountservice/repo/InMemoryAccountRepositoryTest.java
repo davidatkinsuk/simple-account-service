@@ -10,9 +10,27 @@ public class InMemoryAccountRepositoryTest {
 
     private InMemoryAccountRepository repo;
 
+    private Account testAccount1;
+    private Account testAccount2;
+
     @Before
     public void setup() {
         repo = new InMemoryAccountRepository();
+
+        testAccount1 = Account.builder()
+                .id(1)
+                .accountNumber("account1")
+                .firstName("firstName1")
+                .secondName("secondName1")
+                .build();
+
+        testAccount2 = Account.builder()
+                .id(2)
+                .accountNumber("account2")
+                .firstName("firstName2")
+                .secondName("secondName2")
+                .build();
+
     }
 
     @Test
@@ -25,14 +43,7 @@ public class InMemoryAccountRepositoryTest {
     @Test
     public void getAllAccounts_singleEntry() {
 
-        repo.addAccount(
-            Account.builder()
-                    .id(1)
-                    .accountNumber("account1")
-                    .firstName("firstName1")
-                    .secondName("secondName1")
-                    .build()
-        );
+        repo.addAccount(testAccount1);
 
         assertEquals(1,repo.getAccount().size());
 
@@ -48,23 +59,8 @@ public class InMemoryAccountRepositoryTest {
     @Test
     public void getAllAccounts_twoEntries() {
 
-        repo.addAccount(
-                Account.builder()
-                        .id(1)
-                        .accountNumber("account1")
-                        .firstName("firstName1")
-                        .secondName("secondName1")
-                        .build()
-        );
-
-        repo.addAccount(
-                Account.builder()
-                        .id(2)
-                        .accountNumber("account2")
-                        .firstName("firstName2")
-                        .secondName("secondName2")
-                        .build()
-        );
+        repo.addAccount(testAccount1);
+        repo.addAccount(testAccount2);
 
         assertEquals(2,repo.getAccount().size());
 
@@ -81,6 +77,7 @@ public class InMemoryAccountRepositoryTest {
         assertEquals("secondName2",secondAccount.getSecondName());
 
     }
+
 
 
 
