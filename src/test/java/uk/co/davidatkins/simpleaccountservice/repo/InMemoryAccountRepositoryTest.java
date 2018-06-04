@@ -39,7 +39,7 @@ public class InMemoryAccountRepositoryTest {
     @Test
     public void getAllAccounts_empty() {
 
-        assertEquals(0,repo.getAccount().size());
+        assertEquals(0,repo.getAccounts().size());
 
     }
 
@@ -48,9 +48,9 @@ public class InMemoryAccountRepositoryTest {
 
         repo.addAccount(testAccount1);
 
-        assertEquals(1,repo.getAccount().size());
+        assertEquals(1,repo.getAccounts().size());
 
-        assertIsTestAccount1(repo.getAccount().get(0));
+        assertIsTestAccount1(repo.getAccounts().get(0));
 
     }
 
@@ -60,10 +60,10 @@ public class InMemoryAccountRepositoryTest {
         repo.addAccount(testAccount1);
         repo.addAccount(testAccount2);
 
-        assertEquals(2,repo.getAccount().size());
+        assertEquals(2,repo.getAccounts().size());
 
-        assertIsTestAccount1(repo.getAccount().get(0));
-        assertIsTestAccount2(repo.getAccount().get(1));
+        assertIsTestAccount1(repo.getAccounts().get(0));
+        assertIsTestAccount2(repo.getAccounts().get(1));
 
     }
 
@@ -72,12 +72,12 @@ public class InMemoryAccountRepositoryTest {
 
         repo.addAccount(testAccount1);
         repo.addAccount(testAccount2);
-        assertEquals(2,repo.getAccount().size());
+        assertEquals(2,repo.getAccounts().size());
 
         repo.deleteAccount(TEST_ACCOUNT_1_ID);
 
-        assertEquals(1,repo.getAccount().size());
-        assertIsTestAccount2(repo.getAccount().get(0));
+        assertEquals(1,repo.getAccounts().size());
+        assertIsTestAccount2(repo.getAccounts().get(0));
 
     }
 

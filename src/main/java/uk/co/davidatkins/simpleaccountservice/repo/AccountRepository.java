@@ -5,7 +5,7 @@ import uk.co.davidatkins.simpleaccountservice.model.Account;
 import java.util.List;
 
 public interface AccountRepository {
-    List<Account> getAccount();
+    List<Account> getAccounts();
 
     void addAccount(Account build);
 

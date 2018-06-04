@@ -14,7 +14,7 @@ public class InMemoryAccountRepository implements AccountRepository {
     private List<Account> accounts = new ArrayList<>();
 
     @Override
-    public List<Account> getAccount() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 
