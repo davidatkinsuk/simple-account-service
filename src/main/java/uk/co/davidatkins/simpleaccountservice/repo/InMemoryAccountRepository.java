@@ -1,11 +1,14 @@
 package uk.co.davidatkins.simpleaccountservice.repo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import uk.co.davidatkins.simpleaccountservice.model.Account;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class InMemoryAccountRepository implements AccountRepository {
 
     private List<Account> accounts = new ArrayList<>();

@@ -17,6 +17,6 @@ public interface AccountService {
     List<Account> getAll();
 
     @POST
-    SimpleResponse addAccount();
+    SimpleResponse addAccount(Account account);
 
 }

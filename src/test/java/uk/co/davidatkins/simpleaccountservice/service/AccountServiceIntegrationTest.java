@@ -8,6 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.co.davidatkins.simpleaccountservice.model.Account;
 
@@ -21,6 +22,7 @@ public class AccountServiceIntegrationTest {
     private int port;
 
     @Test
+    @DirtiesContext
     public void getAccounts_empty() throws Exception {
 
         ResponseEntity<String> entity =
@@ -32,6 +34,7 @@ public class AccountServiceIntegrationTest {
     }
 
     @Test
+    @DirtiesContext
     public void addAccount() throws Exception {
 
         Account testAccount = Account.builder().id(1).build();
@@ -44,6 +47,7 @@ public class AccountServiceIntegrationTest {
     }
 
     @Test
+    @DirtiesContext
     public void addAccountAndRetrieveAllAccounts() throws Exception {
 
         Account testAccount1 = Account.builder()
@@ -61,7 +65,7 @@ public class AccountServiceIntegrationTest {
         assertEquals(HttpStatus.OK, entity.getStatusCode());
 
         JSONAssert.assertEquals(
-                "[{ \"id\": 1, \"accountNumber\" : \"accountNumber1\", \"firstName\": \"firstName1\", \"secondName\": \"secondName2\"}]",
+                "[{ \"id\": 1, \"accountNumber\" : \"accountNumber1\", \"firstName\": \"firstName1\", \"secondName\": \"secondName1\"}]",
                 entity.getBody(),
                 false);
 
