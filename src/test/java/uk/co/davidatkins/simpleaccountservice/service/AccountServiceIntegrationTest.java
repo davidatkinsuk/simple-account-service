@@ -27,11 +27,7 @@ public class AccountServiceIntegrationTest {
     @DirtiesContext
     public void getAccounts_empty() throws Exception {
 
-        ResponseEntity<String> entity =
-                new TestRestTemplate().getForEntity(getUrl(""), String.class);
-        assertEquals(HttpStatus.OK, entity.getStatusCode());
-
-        JSONAssert.assertEquals("[]", entity.getBody(), false);
+        listAccounts("[]");
 
     }
 
@@ -39,12 +35,7 @@ public class AccountServiceIntegrationTest {
     @DirtiesContext
     public void addAccount() throws Exception {
 
-        Account testAccount = Account.builder().id(1).build();
-
-        ResponseEntity<String> postEntity =new TestRestTemplate().postForEntity(getUrl(""),testAccount,String.class);
-        assertEquals(HttpStatus.OK, postEntity.getStatusCode());
-
-        JSONAssert.assertEquals("{ \"message\" : \"account has been successfully added\" }" , postEntity.getBody(), false);
+        addTestAccount(1);
 
     }
 
@@ -52,24 +43,9 @@ public class AccountServiceIntegrationTest {
     @DirtiesContext
     public void addAccountAndRetrieveAllAccounts() throws Exception {
 
-        Account testAccount1 = Account.builder()
-                .id(1)
-                .accountNumber("accountNumber1")
-                .firstName("firstName1")
-                .secondName("secondName1")
-                .build();
+        addTestAccount(1);
 
-        ResponseEntity<String> postEntity =new TestRestTemplate().postForEntity(getUrl(""),testAccount1,String.class);
-        assertEquals(HttpStatus.OK, postEntity.getStatusCode());
-
-        ResponseEntity<String> entity =
-                new TestRestTemplate().getForEntity(getUrl(""), String.class);
-        assertEquals(HttpStatus.OK, entity.getStatusCode());
-
-        JSONAssert.assertEquals(
-                "[{ \"id\": 1, \"accountNumber\" : \"accountNumber1\", \"firstName\": \"firstName1\", \"secondName\": \"secondName1\"}]",
-                entity.getBody(),
-                false);
+        listAccounts("[{ \"id\": 1, \"accountNumber\" : \"accountNumber1\", \"firstName\": \"firstName1\", \"secondName\": \"secondName1\"}]");
 
     }
 
@@ -81,34 +57,35 @@ public class AccountServiceIntegrationTest {
         addTestAccount(2);
         addTestAccount(3);
 
-        ResponseEntity<String> getEntityBefore =
-                new TestRestTemplate().getForEntity(getUrl(""), String.class);
-        assertEquals(HttpStatus.OK, getEntityBefore.getStatusCode());
-        JSONAssert.assertEquals(
-                "[" +
+        listAccounts("[" +
                         "{ \"id\": 1, \"accountNumber\" : \"accountNumber1\", \"firstName\": \"firstName1\", \"secondName\": \"secondName1\"}," +
                         "{ \"id\": 2, \"accountNumber\" : \"accountNumber2\", \"firstName\": \"firstName2\", \"secondName\": \"secondName2\"}," +
                         "{ \"id\": 3, \"accountNumber\" : \"accountNumber3\", \"firstName\": \"firstName3\", \"secondName\": \"secondName3\"}" +
-                        "]",
-                getEntityBefore.getBody(),
-                false);
+                        "]");
 
+        deleteAccount(1);
+
+        listAccounts("[" +
+                        "{ \"id\": 1, \"accountNumber\" : \"accountNumber1\", \"firstName\": \"firstName1\", \"secondName\": \"secondName1\"}," +
+                        "{ \"id\": 3, \"accountNumber\" : \"accountNumber3\", \"firstName\": \"firstName3\", \"secondName\": \"secondName3\"}" +
+                        "]");
+
+    }
+
+    private void listAccounts(String expectedJson) throws JSONException {
+        ResponseEntity<String> getEntityAfter =
+                new TestRestTemplate().getForEntity(getUrl(""), String.class);
+        assertEquals(HttpStatus.OK, getEntityAfter.getStatusCode());
+        JSONAssert.assertEquals(expectedJson,
+                getEntityAfter.getBody(),
+                false);
+    }
+
+    private void deleteAccount(long id) throws JSONException {
         // https://github.com/spring-projects/spring-boot/issues/12009
         ResponseEntity<String> deleteResponse =new TestRestTemplate().exchange(getUrl("/2"),HttpMethod.DELETE,null,String.class);
         assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());
         JSONAssert.assertEquals("{ \"message\" : \"account successfully deleted\" }" , deleteResponse.getBody(), false);
-
-        ResponseEntity<String> getEntityAfter =
-                new TestRestTemplate().getForEntity(getUrl(""), String.class);
-        assertEquals(HttpStatus.OK, getEntityAfter.getStatusCode());
-        JSONAssert.assertEquals(
-                "[" +
-                        "{ \"id\": 1, \"accountNumber\" : \"accountNumber1\", \"firstName\": \"firstName1\", \"secondName\": \"secondName1\"}," +
-                        "{ \"id\": 3, \"accountNumber\" : \"accountNumber3\", \"firstName\": \"firstName3\", \"secondName\": \"secondName3\"}" +
-                        "]",
-                getEntityAfter.getBody(),
-                false);
-
     }
 
     private void addTestAccount(int id) throws JSONException {
