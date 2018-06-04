@@ -43,6 +43,30 @@ public class AccountServiceIntegrationTest {
 
     }
 
+    @Test
+    public void addAccountAndRetrieveAllAccounts() throws Exception {
+
+        Account testAccount1 = Account.builder()
+                .id(1)
+                .accountNumber("accountNumber1")
+                .firstName("firstName1")
+                .secondName("secondName1")
+                .build();
+
+        ResponseEntity<String> postEntity =new TestRestTemplate().postForEntity(getUrl(""),testAccount1,String.class);
+        assertEquals(HttpStatus.OK, postEntity.getStatusCode());
+
+        ResponseEntity<String> entity =
+                new TestRestTemplate().getForEntity(getUrl(""), String.class);
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+
+        JSONAssert.assertEquals(
+                "[{ \"id\": 1, \"accountNumber\" : \"accountNumber1\", \"firstName\": \"firstName1\", \"secondName\": \"secondName2\"}]",
+                entity.getBody(),
+                false);
+
+    }
+
     private String getUrl(String path) {
         return String.format("http://localhost:%s/rest/account/json%s",port,path);
     }
