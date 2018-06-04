@@ -26,4 +26,11 @@ public class AccountServiceImpl implements AccountService {
         return SimpleResponse.builder().message("account has been successfully added").build();
     }
 
+    @Override
+    public SimpleResponse delete(long id) {
+        accountRepository.deleteAccount(id);
+
+        return SimpleResponse.builder().message("account successfully deleted").build();
+    }
+
 }

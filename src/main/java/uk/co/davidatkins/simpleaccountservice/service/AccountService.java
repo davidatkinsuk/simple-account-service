@@ -2,10 +2,7 @@ package uk.co.davidatkins.simpleaccountservice.service;
 
 import uk.co.davidatkins.simpleaccountservice.model.Account;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -18,5 +15,9 @@ public interface AccountService {
 
     @POST
     SimpleResponse addAccount(Account account);
+
+    @DELETE
+    @Path("{id}")
+    SimpleResponse delete(@PathParam("id") long id);
 
 }
