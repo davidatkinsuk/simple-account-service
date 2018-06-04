@@ -39,7 +39,7 @@ public class AccountServiceIntegrationTest {
         ResponseEntity<String> postEntity =new TestRestTemplate().postForEntity(String.format("http://localhost:%s/rest/account/json",port),testAccount,String.class);
         assertEquals(HttpStatus.OK, postEntity.getStatusCode());
 
-        JSONAssert.assertEquals("{ \"message\" : \"account has been successfully added\"" , postEntity.getBody(), false);
+        JSONAssert.assertEquals("{ \"message\" : \"account has been successfully added\" }" , postEntity.getBody(), false);
 
     }
 

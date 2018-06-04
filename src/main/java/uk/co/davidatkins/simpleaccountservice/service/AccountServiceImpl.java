@@ -14,4 +14,9 @@ public class AccountServiceImpl implements AccountService {
         return Collections.emptyList();
     }
 
+    @Override
+    public SimpleResponse addAccount() {
+        return SimpleResponse.builder().message("account has been successfully added").build();
+    }
+
 }
