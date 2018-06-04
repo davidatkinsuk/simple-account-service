@@ -1,17 +1,20 @@
 package uk.co.davidatkins.simpleaccountservice.model;
 
+import lombok.Builder;
+
+@Builder
 public class Account {
 
-    private String id;
+    private long id;
     private String firstName;
     private String secondName;
     private String accountNumber;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
