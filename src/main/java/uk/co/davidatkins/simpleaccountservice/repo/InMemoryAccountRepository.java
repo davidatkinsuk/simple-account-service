@@ -1,6 +1,5 @@
 package uk.co.davidatkins.simpleaccountservice.repo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uk.co.davidatkins.simpleaccountservice.model.Account;
 
