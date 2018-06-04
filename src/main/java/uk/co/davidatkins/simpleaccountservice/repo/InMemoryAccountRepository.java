@@ -21,7 +21,7 @@ public class InMemoryAccountRepository implements AccountRepository {
     }
 
     @Override
-    public void deleteAccount(int id) {
+    public void deleteAccount(long id) {
         accounts = accounts.stream().filter(a -> a.getId() != id).collect(Collectors.toList());
     }
 }

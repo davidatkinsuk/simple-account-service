@@ -9,5 +9,5 @@ public interface AccountRepository {
 
     void addAccount(Account build);
 
-    void deleteAccount(int i);
+    void deleteAccount(long i);
 }

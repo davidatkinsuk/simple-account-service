@@ -13,19 +13,22 @@ public class InMemoryAccountRepositoryTest {
     private Account testAccount1;
     private Account testAccount2;
 
+    private static final long TEST_ACCOUNT_1_ID = 1;
+    private static final long TEST_ACCOUNT_2_ID = 2;
+
     @Before
     public void setup() {
         repo = new InMemoryAccountRepository();
 
         testAccount1 = Account.builder()
-                .id(1)
+                .id(TEST_ACCOUNT_1_ID)
                 .accountNumber("account1")
                 .firstName("firstName1")
                 .secondName("secondName1")
                 .build();
 
         testAccount2 = Account.builder()
-                .id(2)
+                .id(TEST_ACCOUNT_2_ID)
                 .accountNumber("account2")
                 .firstName("firstName2")
                 .secondName("secondName2")
@@ -71,7 +74,7 @@ public class InMemoryAccountRepositoryTest {
         repo.addAccount(testAccount2);
         assertEquals(2,repo.getAccount().size());
 
-        repo.deleteAccount(1);
+        repo.deleteAccount(TEST_ACCOUNT_1_ID);
 
         assertEquals(1,repo.getAccount().size());
         assertIsTestAccount2(repo.getAccount().get(0));
@@ -79,14 +82,14 @@ public class InMemoryAccountRepositoryTest {
     }
 
     private void assertIsTestAccount1(Account account) {
-        assertEquals(1,account.getId());
+        assertEquals(TEST_ACCOUNT_1_ID,account.getId());
         assertEquals("account1",account.getAccountNumber());
         assertEquals("firstName1",account.getFirstName());
         assertEquals("secondName1",account.getSecondName());
     }
 
     private void assertIsTestAccount2(Account account) {
-        assertEquals(2,account.getId());
+        assertEquals(TEST_ACCOUNT_2_ID,account.getId());
         assertEquals("account2",account.getAccountNumber());
         assertEquals("firstName2",account.getFirstName());
         assertEquals("secondName2",account.getSecondName());
