@@ -1,5 +1,6 @@
 package uk.co.davidatkins.simpleaccountservice.repo;
 
+import org.junit.Before;
 import org.junit.Test;
 import uk.co.davidatkins.simpleaccountservice.model.Account;
 
@@ -7,10 +8,16 @@ import static org.junit.Assert.assertEquals;
 
 public class InMemoryAccountRepositoryTest {
 
+    private InMemoryAccountRepository repo;
+
+    @Before
+    public void setup() {
+        repo = new InMemoryAccountRepository();
+    }
+
     @Test
     public void getAllAccounts_empty() {
 
-        InMemoryAccountRepository repo = new InMemoryAccountRepository();
         assertEquals(0,repo.getAccount().size());
 
     }
@@ -18,7 +25,6 @@ public class InMemoryAccountRepositoryTest {
     @Test
     public void getAllAccounts_singleEntry() {
 
-        InMemoryAccountRepository repo = new InMemoryAccountRepository();
         repo.addAccount(
             Account.builder()
                     .id(1)
