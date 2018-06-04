@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AccountRepository {
     List<Account> getAccount();
+
+    void addAccount(Account build);
 }
