@@ -24,7 +24,7 @@ public class AccountServiceIntegrationTest {
     public void getAccounts_empty() throws Exception {
 
         ResponseEntity<String> entity =
-                new TestRestTemplate().getForEntity(String.format("http://localhost:%s/rest/account/json",port), String.class);
+                new TestRestTemplate().getForEntity(getUrl(""), String.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
 
         JSONAssert.assertEquals("[]", entity.getBody(), false);
@@ -36,11 +36,15 @@ public class AccountServiceIntegrationTest {
 
         Account testAccount = Account.builder().id(1).build();
 
-        ResponseEntity<String> postEntity =new TestRestTemplate().postForEntity(String.format("http://localhost:%s/rest/account/json",port),testAccount,String.class);
+        ResponseEntity<String> postEntity =new TestRestTemplate().postForEntity(getUrl(""),testAccount,String.class);
         assertEquals(HttpStatus.OK, postEntity.getStatusCode());
 
         JSONAssert.assertEquals("{ \"message\" : \"account has been successfully added\" }" , postEntity.getBody(), false);
 
+    }
+
+    private String getUrl(String path) {
+        return String.format("http://localhost:%s/rest/account/json%s",port,path);
     }
 
 }
