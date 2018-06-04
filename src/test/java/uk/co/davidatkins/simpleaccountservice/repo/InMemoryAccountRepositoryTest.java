@@ -64,6 +64,20 @@ public class InMemoryAccountRepositoryTest {
 
     }
 
+    @Test
+    public void deleteAccount() {
+
+        repo.addAccount(testAccount1);
+        repo.addAccount(testAccount2);
+        assertEquals(2,repo.getAccount().size());
+
+        repo.deleteAccount(1);
+
+        assertEquals(1,repo.getAccount().size());
+        assertIsTestAccount1(repo.getAccount().get(0));
+
+    }
+
     private void assertIsTestAccount1(Account account) {
         assertEquals(1,account.getId());
         assertEquals("account1",account.getAccountNumber());
