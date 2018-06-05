@@ -24,6 +24,7 @@ public class InMemoryAccountRepository implements AccountRepository {
 
     @Override
     public void deleteAccount(long id) {
+        // Using a Map indexed by id would be more efficient, but as suggested in the exercise, i wanted to demonstrate some Java 8 features
         accounts = accounts.stream().filter(a -> a.getId() != id).collect(Collectors.toList());
     }
 }

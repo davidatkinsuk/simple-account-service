@@ -16,6 +16,10 @@ import uk.co.davidatkins.simpleaccountservice.model.Account;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Future improvements would be to read the expected JSON content from files to make
+ * them more readable (e.g. via class loader)
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class AccountServiceIntegrationTest {

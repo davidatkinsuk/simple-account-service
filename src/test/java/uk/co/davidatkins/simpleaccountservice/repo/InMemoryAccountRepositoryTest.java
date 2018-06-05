@@ -81,6 +81,32 @@ public class InMemoryAccountRepositoryTest {
 
     }
 
+    @Test
+    public void deleteAllAccounts() {
+
+        repo.addAccount(testAccount1);
+        repo.addAccount(testAccount2);
+        assertEquals(2,repo.getAccounts().size());
+
+        repo.deleteAccount(TEST_ACCOUNT_1_ID);
+        repo.deleteAccount(TEST_ACCOUNT_2_ID);
+
+        assertEquals(0,repo.getAccounts().size());
+    }
+
+    @Test
+    public void deleteNonExistentAccount() {
+
+        repo.addAccount(testAccount1);
+        repo.addAccount(testAccount2);
+        assertEquals(2,repo.getAccounts().size());
+
+        repo.deleteAccount(99);
+
+        // no change
+        assertEquals(2,repo.getAccounts().size());
+    }
+
     private void assertIsTestAccount1(Account account) {
         assertEquals(TEST_ACCOUNT_1_ID,account.getId());
         assertEquals("account1",account.getAccountNumber());
